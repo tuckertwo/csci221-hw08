@@ -48,7 +48,7 @@ void destroy_tree(tree_ptr_t tree)
 
 
 //////////////////////////////////////////////////////////////////////////////
-std::string path_to(tree_ptr_t tree, key_type key)
+possible_path_t HTree::path_to(key_t key) const
 {
   string subpath;
   if(tree == nullptr)
