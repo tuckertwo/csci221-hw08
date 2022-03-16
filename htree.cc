@@ -24,12 +24,19 @@ class HTree
         tree_ptr_t right = nullptr);
   ~HTree();
 
-  key_t   get_key()   const ;   // Return key   in current node
-  value_t get_value() const ; // Return value in current node
+  key_t   get_key()   const {return key_};   // Return key   in current node
+  value_t get_value() const {return value_}; // Return value in current node
 
   // Return the child of this node indicated by dir.
   // If the child is nullptr (current node is a leaf), returns nullptr.
-  tree_ptr_t get_child(Direction dir) const ;
+  tree_ptr_t get_child(Direction dir) const
+  {
+    switch(dir)
+    {
+      case LEFT:  return left_;
+      case RIGHT: return right_;
+    }
+  };
 
   // Return an optional list of directions from root to a node of a given key.
   // If key not contained in this tree, returns nullptr
