@@ -6,46 +6,16 @@
 #include "htree.hh"
 using namespace std;
 
-class HTree
+// Accessor functions
+key_t   HTree::get_key()   const {return key_}
+value_t HTree::get_value() const {return value_}
+tree_ptr_t HTree::get_child(Direction dir) const
 {
- public:
-  using tree_ptr_t = std::shared_ptr<const HTree>;
-  enum class Direction { LEFT, RIGHT };
-  using path_t = std::list<Direction>;
-  using possible_path_t = std::unique_ptr<path_t>;
-  using key_t = int;
-  using value_t = uint64_t;
-
-
-  // Initialize with a key and a value:
-  HTree(key_t key,
-        value_t value,
-        tree_ptr_t left = nullptr,
-        tree_ptr_t right = nullptr);
-  ~HTree();
-
-  key_t   get_key()   const {return key_};   // Return key   in current node
-  value_t get_value() const {return value_}; // Return value in current node
-
-  // Return the child of this node indicated by dir.
-  // If the child is nullptr (current node is a leaf), returns nullptr.
-  tree_ptr_t get_child(Direction dir) const
+  switch(dir)
   {
-    switch(dir)
-    {
-      case LEFT:  return left_;
-      case RIGHT: return right_;
-    }
-  };
-
-  // Return an optional list of directions from root to a node of a given key.
-  // If key not contained in this tree, returns nullptr
-  possible_path_t path_to(key_t key) const;
- private:
-  key_t   key_;
-  value_t value_;
-  tree_ptr_t left_;
-  tree_ptr_t right_;
+    case Direction::LEFT:  return left_;
+    case Direction::RIGHT: return right_;
+  }
 };
 
 //////////////////////////////////////////////////////////////////////////////
