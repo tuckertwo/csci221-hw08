@@ -59,36 +59,29 @@ HTree::possible_path_t HTree::path_to(key_t key) const
 
 
 //////////////////////////////////////////////////////////////////////////////
-/*HTree::tree_ptr_t node_at(HTree::tree_ptr_t tree, HTree::path_t path)
+HTree::tree_ptr_t node_at(HTree::tree_ptr_t tree, HTree::path_t path)
 {
-  if(tree == nullptr)
+  HTree::tree_ptr_t nextel = nullptr;
+  if(path == "")
   {
-    return nullptr;
+    nextel = tree;
+  }
+  else if(path[0] == 'L' && tree.get_child(Direction::LEFT))
+  {
+    nextel = tree.get_child(Direction::LEFT);
+  }
+  else if(path[0] == 'R' && tree.get_child(Direction::RIGHT))
+  {
+    nextel = tree.get_child(Direction::RIGHT);
+  }
+
+  if(nextel && path.length()>1)
+  {
+    // Yoink the first character off of the string and continue traversing.
+    return nextel.node_at(path.substr(1));
   }
   else
   {
-    tree_ptr_t nextel = nullptr;
-    if(path == "")
-    {
-      nextel = tree;
-    }
-    else if(path[0] == 'L' && tree->left_)
-    {
-      nextel = tree->left_;
-    }
-    else if(path[0] == 'R' && tree->right_)
-    {
-      nextel = tree->right_;
-    }
-
-    if(nextel && path.length()>1)
-    {
-      // Yoink the first character off of the string and continue traversing.
-      return node_at(nextel, path.substr(1));
-    }
-    else
-    {
-      return nextel;
-    }
+    return nextel;
   }
-}*/
+}
