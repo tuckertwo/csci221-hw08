@@ -4,78 +4,62 @@
  */
 
 #include "htree.hh"
+#include <cassert>
 using namespace std;
 
+
 // Accessor functions
-key_t   HTree::get_key()   const {return key_}
-value_t HTree::get_value() const {return value_}
-tree_ptr_t HTree::get_child(Direction dir) const
+HTree::key_t   HTree::get_key()   const {return key_;}
+HTree::value_t HTree::get_value() const {return value_;}
+HTree::tree_ptr_t HTree::get_child(Direction dir) const
 {
   switch(dir)
   {
     case Direction::LEFT:  return left_;
     case Direction::RIGHT: return right_;
   }
-};
-
-//////////////////////////////////////////////////////////////////////////////
-tree_ptr_t create_tree(const key_type& key,
-            const value_type& value,
-            tree_ptr_t left,
-            tree_ptr_t right)
-{
-  Tree* tree = new Tree({key, value, left, right});
-  return tree;
+  // This code shouldn't be reachable, but is required to satisfy -Werror
+  assert(1!=1);
+  return left_;
 }
 
+// Constructor
+HTree::HTree(key_t key,
+      value_t value,
+      tree_ptr_t left,
+      tree_ptr_t right)
+  : key_(key), value_(value), left_(left), right_(right) {}
+
+// Destructor
+HTree::~HTree() {}
 
 //////////////////////////////////////////////////////////////////////////////
-void destroy_tree(tree_ptr_t tree)
+HTree::possible_path_t HTree::path_to(key_t key) const
 {
-  // This for loop can be confusing; the tree traversal is done recursively.
-  // (The for loop is just here to iterate over the left and right nodes to
-  // eliminate some cut-and-pasting of code.)
-  for(tree_ptr_t branch : {tree->left_, tree->right_})
+  HTree::possible_path_t subpath;
+  if(key==key_)
   {
-    if(branch)
-    {
-      destroy_tree(branch);
-    }
+    return HTree::possible_path_t(new path_t());
   }
-
-  delete tree;
-}
-
-
-//////////////////////////////////////////////////////////////////////////////
-possible_path_t HTree::path_to(key_t key) const
-{
-  string subpath;
-  if(tree == nullptr)
+  else if(left_ && (subpath = left_->path_to(key)))
   {
-    return "-";
+    subpath->push_front(Direction::LEFT);
+    return subpath;
   }
-  else if(key==tree->key_)
+  else if(right_ && (subpath = right_->path_to(key)))
   {
-      return "";
+    subpath->push_front(Direction::RIGHT);
+    return subpath;
   }
-
-  else if(tree->left_ &&(subpath = path_to(tree->left_, key))!="-"){
-      return "L" + subpath;
-  }
-
-  else if(tree->right_ &&(subpath = path_to(tree->right_, key))!="-"){
-      return "R" + subpath;
-  }
-
-  else{
-      return "-";
+  else
+  {
+    return nullptr;
   }
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
-tree_ptr_t node_at(tree_ptr_t tree, std::string path)
+/*HTree::tree_ptr_t node_at(HTree::tree_ptr_t tree, HTree::path_t path)
 {
   if(tree == nullptr)
   {
@@ -107,4 +91,4 @@ tree_ptr_t node_at(tree_ptr_t tree, std::string path)
       return nextel;
     }
   }
-}
+}*/
