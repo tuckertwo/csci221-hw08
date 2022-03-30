@@ -20,6 +20,9 @@ class HForest
 
  private:
   std::vector forest_;
-  // the forester
-  bool compare_trees(HTree::tree_ptr_t a, HTree::tree_ptr_t b);
+  // The forester
+  // To be perfectly frank, I'm not sure if this should be a method of
+  // the HForest class or if it instead should be its own function.
+  bool compare_trees(const HTree::tree_ptr_t a,
+      const HTree::tree_ptr_t b) const;
 };
