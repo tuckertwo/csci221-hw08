@@ -48,9 +48,4 @@ int main()
   HTree::path_t path = {Direction::LEFT, Direction::LEFT,
       Direction::LEFT, Direction::RIGHT};
   assert(*(sequoia->path_to(16)) == path);
-
-  // Testing node_at
-  assert(sequoia->node_at(HTree::path_t()) == sequoia);
-  assert(sequoia->node_at(*(sequoia->path_to(154))) == sequoia);
-  assert(sequoia->node_at(*(sequoia->path_to(16)))  == leaf);
 }

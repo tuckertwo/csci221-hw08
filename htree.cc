@@ -56,28 +56,3 @@ HTree::possible_path_t HTree::path_to(key_t key) const
     return nullptr;
   }
 }
-
-HTree::tree_ptr_t HTree::node_at(HTree::path_t path) const
-{
-  HTree::tree_ptr_t nextel = nullptr;
-  if(path.empty())
-  {
-    nextel = HTree::tree_ptr_t(this);
-  }
-  else
-  {
-    // Yoink the first character off of the string ...
-    nextel = this->get_child(path.front());
-  }
-
-  if(nextel && path.size()>1)
-  {
-    // ... and keep traversing.
-    path.pop_front();
-    return nextel->node_at(path);
-  }
-  else
-  {
-    return nextel;
-  }
-}
