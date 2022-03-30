@@ -57,28 +57,24 @@ HTree::possible_path_t HTree::path_to(key_t key) const
   }
 }
 
-
-//////////////////////////////////////////////////////////////////////////////
-HTree::tree_ptr_t node_at(HTree::tree_ptr_t tree, HTree::path_t path)
+HTree::tree_ptr_t HTree::node_at(HTree::path_t path) const
 {
   HTree::tree_ptr_t nextel = nullptr;
-  if(path == "")
+  if(path.empty())
   {
-    nextel = tree;
+    nextel = HTree::tree_ptr_t(this);
   }
-  else if(path[0] == 'L' && tree.get_child(Direction::LEFT))
+  else
   {
-    nextel = tree.get_child(Direction::LEFT);
-  }
-  else if(path[0] == 'R' && tree.get_child(Direction::RIGHT))
-  {
-    nextel = tree.get_child(Direction::RIGHT);
+    // Yoink the first character off of the string ...
+    nextel = this->get_child(path.front());
   }
 
-  if(nextel && path.length()>1)
+  if(nextel && path.size()>1)
   {
-    // Yoink the first character off of the string and continue traversing.
-    return nextel.node_at(path.substr(1));
+    // ... and keep traversing.
+    path.pop_front();
+    return nextel->node_at(path);
   }
   else
   {
