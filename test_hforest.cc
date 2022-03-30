@@ -16,25 +16,33 @@ int main()
 
   // Constructing a forest
   HForest forest0 = HForest();
-  assert(forest0->size() == 0);
-  forest0->add_tree(leaf);
-  forest0->add_tree(sequoia);
-  assert(forest0->size() == 2);
+  assert(forest0.size() == 0);
+  forest0.add_tree(leaf);
+  forest0.add_tree(sequoia);
+  assert(forest0.size() == 2);
 
   // Since HForest uses a heap internally, insertion order shouldn't
   // matter.
   HForest forest1 = HForest();
-  forest1->add_tree(sequoia);
-  forest1->add_tree(leaf);
+  forest1.add_tree(sequoia);
+  forest1.add_tree(leaf);
   assert(forest1         == forest0);
 
   // Testing deletion
   HForest forest2 = HForest();
-  forest2->add_tree(sequoia);
+  forest2.add_tree(sequoia);
   assert(forest0.pop_tree() == leaf);
-  assert(forest0->size() == 1);
+  assert(forest0.size() == 1);
   assert(forest0         == forest2);
   assert(forest0.pop_tree() == sequoia);
-  assert(forest0->size() == 0);
+  assert(forest0.size() == 0);
   assert(forest0.pop_tree() == nullptr);
+
+  // Test inline forest creation
+  /*
+  HForest forest3 = HForest({leaf, sequoia});
+  HForest forest4 = HForest({sequoia, leaf});
+  assert(forest2         == forest3);
+  assert(forest3         == forest4);
+  */
 }
