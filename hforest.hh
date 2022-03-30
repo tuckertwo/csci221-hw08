@@ -5,7 +5,7 @@
 class HForest
 {
  public:
-  HForest();
+  HForest(std::vector<HTree::tree_ptr_t> initial={});
   ~HForest();
 
   // Get the size of the forest

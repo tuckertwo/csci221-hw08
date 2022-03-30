@@ -39,10 +39,8 @@ int main()
   assert(forest0.pop_tree() == nullptr);
 
   // Test inline forest creation
-  /*
   HForest forest3 = HForest({leaf, sequoia});
   HForest forest4 = HForest({sequoia, leaf});
   assert(forest2         == forest3);
   assert(forest3         == forest4);
-  */
 }

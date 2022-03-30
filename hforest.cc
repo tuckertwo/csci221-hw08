@@ -4,28 +4,8 @@
 
 using namespace std;
 
-// Constructor
-// Warning: when exploring South American forests, beware of the
-// Boa Constructor.
-HForest::HForest(void)
-{
-  vector<HTree::tree_ptr_t> forest_ {};
-}
-
-// Destructor (unremarkable)
-HForest::~HForest() {}
-
-bool HForest::operator==(HForest b)
-{
-  return forest_ == b.forest_;
-}
-
-int HForest::size() const
-{
-  return forest_.size();
-}
-
 // Returns true if a<b.
+// Note: this function must be declared before the other forest functions.
 bool compare_trees(const HTree::tree_ptr_t a,
     const HTree::tree_ptr_t b)
 {
@@ -41,6 +21,28 @@ bool compare_trees(const HTree::tree_ptr_t a,
   {
     return a->get_value() < b->get_value();
   }
+}
+
+// Constructor
+// Warning: when exploring South American forests, beware of the
+// Boa Constructor.
+HForest::HForest(vector<HTree::tree_ptr_t> initial)
+{
+  vector<HTree::tree_ptr_t> forest_ = initial;
+  make_heap(forest_.begin(), forest_.end(), compare_trees);
+}
+
+// Destructor (unremarkable)
+HForest::~HForest() {}
+
+bool HForest::operator==(HForest b)
+{
+  return forest_ == b.forest_;
+}
+
+int HForest::size() const
+{
+  return forest_.size();
 }
 
 void HForest::add_tree(HTree::tree_ptr_t tree)
