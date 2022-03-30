@@ -36,4 +36,5 @@ int main()
   assert(forest0         == forest2);
   assert(forest0.pop_tree() == sequoia);
   assert(forest0->size() == 0);
+  assert(forest0.pop_tree() == nullptr);
 }
