@@ -11,7 +11,7 @@ test_htree: test_htree.o htree.o
 test_tree: test_tree.o tree.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
-test_hforest: test_hforest.o hforest.o
+test_hforest: test_hforest.o hforest.o htree.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
 %.o: %.cc %.hh
