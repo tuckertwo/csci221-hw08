@@ -4,3 +4,6 @@ test_tree
 CMakeCache.txt
 cmake_install.cmake
 #Makefile
+test_htree
+test_hforest
+*.o
