@@ -1,6 +1,6 @@
 #pragma once
 #include "htree.hh"
-#include <list>
+#include <vector>
 
 class HForest
 {
@@ -19,10 +19,5 @@ class HForest
    HTree::tree_ptr_t pop_tree();
 
  private:
-  std::vector forest_;
-  // The forester
-  // To be perfectly frank, I'm not sure if this should be a method of
-  // the HForest class or if it instead should be its own function.
-  bool compare_trees(const HTree::tree_ptr_t a,
-      const HTree::tree_ptr_t b) const;
+  std::vector<HTree::tree_ptr_t> forest_;
 };
