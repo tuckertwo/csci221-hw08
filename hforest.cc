@@ -15,3 +15,8 @@ HForest::HForest()
 
 // Destructor (unremarkable)
 HForest::~HForest() {}
+
+int HForest::size() const
+{
+  return forest_.size();
+}
