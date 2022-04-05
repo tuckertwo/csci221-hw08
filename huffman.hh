@@ -34,4 +34,8 @@ class Huffman {
   // a character symbol or HEOF.
   // Finally, updates the frequency table with this additional symbol.
   int decode(bool bit);
+ private:
+  HForest forest_;
+  std::vector<int> freqtab_;
+  void update_freq(int symbol);
 };
