@@ -1,6 +1,7 @@
 #include "htree.hh"
 #include "hforest.hh"
 #include <cassert>
+#include <iostream>
 
 using namespace std;
 
@@ -41,6 +42,6 @@ int main()
   // Test inline forest creation
   HForest forest3 = HForest({leaf, sequoia});
   HForest forest4 = HForest({sequoia, leaf});
-  assert(forest2         == forest3);
+  assert(forest1         == forest3);
   assert(forest3         == forest4);
 }
