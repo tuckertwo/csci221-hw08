@@ -43,3 +43,15 @@ use the included `Makefile` directly.
 % ./test_htree
 % ./test_forest
 ```
+
+# Running
+Once compiled, run `encoder <file…>` or `decoder <file…>` to compress or
+decompress, respectively, each file given as an argument.
+Multiple arguments can be given; the effect is the same as running the program
+once for each file.
+`encoder` writes its output to a filename derived by appending `.comp` to its
+input filename;
+`decoder` does the same but with `.plaintext` instead.
+
+If `-` is given as the only argument to either `encoder` or `decoder`,
+the program in question will take its input from STDIN and output on STDOUT.
