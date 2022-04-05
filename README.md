@@ -26,6 +26,15 @@ turn a pre-existing vector of trees into an HForest.
 Second, the `pop_tree()` method returns `nullptr` if the forest contains zero
 trees.
 
+## Huffman
+The Huffman class implements an adaptive Huffman encoder/decoder.
+The class aims to implement the adaptive Huffman encoding algorithm exactly as
+specified in the assignment,
+and to pass at least all tests given in the assignment.
+
+The authoritative specification of the HForest class and its methods can once
+again be found in `hforest.hh`.
+
 # Compiling and Testing
 The compilation process for this library is fairly standard;
 use the included `Makefile` directly.
