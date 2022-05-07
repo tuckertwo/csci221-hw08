@@ -27,8 +27,8 @@ bool compare_trees(const HTree::tree_ptr_t a,
 // Warning: when exploring South American forests, beware of the
 // Boa Constructor.
 HForest::HForest(vector<HTree::tree_ptr_t> initial)
+  : forest_(initial)
 {
-  vector<HTree::tree_ptr_t> forest_ = initial;
   make_heap(forest_.begin(), forest_.end(), compare_trees);
 }
 
