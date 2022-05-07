@@ -59,6 +59,8 @@ void test_decode()
   assert(decode_symbol(decoder, bits) == 'a');
   bits = encoder.encode('a');
   assert(decode_symbol(decoder, bits) == 'a');
+  bits = encoder.encode('\x00');
+  assert(decode_symbol(decoder, bits) == '\x00');
   bits = encoder.encode('b');
   assert(decode_symbol(decoder, bits) == 'b');
   bits = encoder.encode('a');
