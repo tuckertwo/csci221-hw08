@@ -18,6 +18,8 @@ test_1_bit()
     bito.output_bit(1);
   } // Need to call bito's destructor here
 
+  assert(bits.str() == "\x80"); // 0b10000000
+
   BitInput biti(bits);
   assert(biti.input_bit() == true);
   assert(biti.input_bit() == false);  // Should just be a trailing zero
@@ -37,6 +39,8 @@ test_4_bits()
     bito.output_bit(0);
     bito.output_bit(1);
   }
+
+  assert(bits.str() == "\x50"); // 0b01010000
 
   BitInput biti(bits);
   assert(biti.input_bit() == false);
