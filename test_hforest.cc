@@ -31,11 +31,11 @@ int main()
 
   // Testing deletion
   HForest forest2 = HForest();
-  forest2.add_tree(sequoia);
-  assert(forest0.pop_tree() == leaf);
+  forest2.add_tree(leaf);
+  assert(forest0.pop_tree()->get_value() == sequoia->get_value());
   assert(forest0.size() == 1);
   assert(forest0         == forest2);
-  assert(forest0.pop_tree() == sequoia);
+  assert(forest0.pop_tree()->get_value() == leaf->get_value());
   assert(forest0.size() == 0);
   assert(forest0.pop_tree() == nullptr);
 
