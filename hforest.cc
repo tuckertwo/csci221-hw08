@@ -1,10 +1,11 @@
 #include "hforest.hh"
 #include <vector>
 #include <algorithm>
+#include <cassert>
 
 using namespace std;
 
-// Returns true if a<b.
+// Returns true if a>=b.
 // Note: this function must be declared before the other forest functions.
 bool compare_trees(const HTree::tree_ptr_t a,
     const HTree::tree_ptr_t b)
@@ -19,7 +20,7 @@ bool compare_trees(const HTree::tree_ptr_t a,
   }
   else
   {
-    return a->get_value() < b->get_value();
+    return a->get_value() >= b->get_value();
   }
 }
 
