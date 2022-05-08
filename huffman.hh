@@ -35,7 +35,11 @@ class Huffman {
   // Finally, updates the frequency table with this additional symbol.
   int decode(bool bit);
  private:
-  HForest forest_;
+  HTree::tree_ptr_t tree_;
   std::vector<int> freqtab_;
+
+  // Updates the frequency table and rebuilds the tree accordingly.
+  // This could be optimized by intelligently updating the tree and not
+  // rebuilding it wholesale.
   void update_freq(int symbol);
 };
