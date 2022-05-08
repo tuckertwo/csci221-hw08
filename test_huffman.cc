@@ -14,16 +14,16 @@ void test_encode()
   Huffman huff;
 
   auto bits = huff.encode('a');
-  assert(bits.size() > CHAR_BIT);
+  assert(bits.size() > 1); // HEOF is 1
 
   bits = huff.encode('b');
-  assert(bits.size() > CHAR_BIT);
+  assert(bits.size() > 2); // HEOF is 1; a is 2.
 
   bits = huff.encode('a');
-  assert(bits.size() < CHAR_BIT);
+  assert(bits.size() < 4);
 
   bits = huff.encode('b');
-  assert(bits.size() < CHAR_BIT);
+  assert(bits.size() < 4);
 
   bits = huff.encode('b');
   assert(bits.size() == huff.encode('a').size());
@@ -41,7 +41,8 @@ int decode_symbol(Huffman& huff, const Huffman::bits_t& bits)
 {
   int symbol = -1;
 
-  for (auto b : bits) {
+  for (auto b : bits)
+  {
     symbol = huff.decode(b);
   }
   assert(symbol >= 0);
