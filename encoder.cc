@@ -1,7 +1,16 @@
 #include <iostream>
 #include <fstream>
+#include <cassert>
 #include "huffman.hh"
 #include "bitio.hh"
+
+void encwrite(Huffman& huff, BitOutput& bitout, int in_byte)
+{
+  for(bool b : huff.encode(in_byte))
+  {
+    bitout.output_bit(b);
+  }
+}
 
 int main(int argc, char* argv[])
 {
@@ -46,18 +55,13 @@ int main(int argc, char* argv[])
 
   while(!in->fail())
   {
-    char in_byte = in->get();
-    if(in_byte != -1)
+    int in_byte = in->get();
+    assert(in_byte >= -1);
+    if(in_byte >= 0)
     {
-      for(bool b : huffman.encode(in_byte))
-      {
-        bitout.output_bit(b);
-      }
+      encwrite(huffman, bitout, in_byte);
     }
   }
-  for(bool b : huffman.encode(Huffman::HEOF))
-  {
-    bitout.output_bit(b);
-  }
+  encwrite(huffman, bitout, Huffman::HEOF);
   return 0;
 }
