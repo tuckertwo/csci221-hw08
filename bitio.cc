@@ -32,6 +32,7 @@ BitOutput::~BitOutput()
   if(buf_len_ != 0)
   {
     os_.put(buf_ << (8-buf_len_));
+    os_.flush();
   }
 }
 
@@ -40,8 +41,9 @@ void BitOutput::output_bit(bool out)
   assert(buf_len_<=8);
   if(buf_len_ == 8) // If the buffer is full,…
   {
-    os_ << buf_; // …then purge the buffer.
+    os_.put(buf_); // …then purge the buffer.
     buf_len_ = 0;
+    buf_     = 0;
   }
 
   buf_ = (buf_<<1) + (out);
