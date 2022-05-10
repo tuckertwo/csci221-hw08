@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "huffman.hh"
 #include "bitio.hh"
 
@@ -13,14 +14,30 @@ int main(int argc, char* argv[])
 
   std::istream* in;
   std::ostream* out;
-  if(*argv[1] == '-')
+  std::string filename(argv[1]);
+  if(filename == "-")
   {
     in  = &std::cin;
     out = &std::cout;
   }
   else
   {
-    return 2;
+    std::ifstream* infile = new std::ifstream(filename);
+    if(infile->fail() || infile->bad())
+    {
+      std::cerr<<"Cannot open "<<filename<<std::endl;
+      return 2;
+    }
+
+    std::ofstream* outfile = new std::ofstream(filename+".comp");
+    if(outfile->fail() || outfile->bad())
+    {
+      std::cerr<<"Cannot open "<<filename<<".comp"<<std::endl;
+      return 2;
+    }
+
+    in  = infile;
+    out = outfile;
   }
 
   BitInput  bitin(*in);
@@ -29,9 +46,13 @@ int main(int argc, char* argv[])
 
   while(!in->fail())
   {
-    for(bool b : huffman.encode(in->get()))
+    char in_byte = in->get();
+    if(in_byte != -1)
     {
-      bitout.output_bit(b);
+      for(bool b : huffman.encode(in_byte))
+      {
+        bitout.output_bit(b);
+      }
     }
   }
   for(bool b : huffman.encode(Huffman::HEOF))
