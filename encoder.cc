@@ -14,54 +14,56 @@ void encwrite(Huffman& huff, BitOutput& bitout, int in_byte)
 
 int main(int argc, char* argv[])
 {
-  if(argc != 2)
+  if(argc < 2)
   {
     std::cerr << "Incorrect number of arguments" << std::endl;
     return 1;
   }
 
-
-  std::istream* in;
-  std::ostream* out;
-  std::string filename(argv[1]);
-  if(filename == "-")
+  for(int argn = 1; argn<argc; argn++)
   {
-    in  = &std::cin;
-    out = &std::cout;
-  }
-  else
-  {
-    std::ifstream* infile = new std::ifstream(filename);
-    if(infile->fail() || infile->bad())
+    std::istream* in;
+    std::ostream* out;
+    std::string filename(argv[argn]);
+    if(filename == "-")
     {
-      std::cerr<<"Cannot open "<<filename<<std::endl;
-      return 2;
+      in  = &std::cin;
+      out = &std::cout;
+    }
+    else
+    {
+      std::ifstream* infile = new std::ifstream(filename);
+      if(infile->fail() || infile->bad())
+      {
+        std::cerr<<"Cannot open "<<filename<<std::endl;
+        return 2;
+      }
+
+      std::ofstream* outfile = new std::ofstream(filename+".comp");
+      if(outfile->fail() || outfile->bad())
+      {
+        std::cerr<<"Cannot open "<<filename<<".comp"<<std::endl;
+        return 2;
+      }
+
+      in  = infile;
+      out = outfile;
     }
 
-    std::ofstream* outfile = new std::ofstream(filename+".comp");
-    if(outfile->fail() || outfile->bad())
+    BitInput  bitin(*in);
+    BitOutput bitout(*out);
+    Huffman   huffman;
+
+    while(!in->fail())
     {
-      std::cerr<<"Cannot open "<<filename<<".comp"<<std::endl;
-      return 2;
+      int in_byte = in->get();
+      assert(in_byte >= -1);
+      if(in_byte >= 0)
+      {
+        encwrite(huffman, bitout, in_byte);
+      }
     }
-
-    in  = infile;
-    out = outfile;
+    encwrite(huffman, bitout, Huffman::HEOF);
   }
-
-  BitInput  bitin(*in);
-  BitOutput bitout(*out);
-  Huffman   huffman;
-
-  while(!in->fail())
-  {
-    int in_byte = in->get();
-    assert(in_byte >= -1);
-    if(in_byte >= 0)
-    {
-      encwrite(huffman, bitout, in_byte);
-    }
-  }
-  encwrite(huffman, bitout, Huffman::HEOF);
   return 0;
 }
