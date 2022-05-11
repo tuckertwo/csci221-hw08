@@ -32,8 +32,8 @@ The class aims to implement the adaptive Huffman encoding algorithm exactly as
 specified in the assignment,
 and to pass at least all tests given in the assignment.
 
-The authoritative specification of the HForest class and its methods can once
-again be found in `hforest.hh`.
+The authoritative specification of the Huffman class and its methods can
+be found in `huffman.hh`.
 
 # Compiling and Testing
 The compilation process for this library is fairly standard;
