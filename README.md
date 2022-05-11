@@ -35,6 +35,13 @@ and to pass at least all tests given in the assignment.
 The authoritative specification of the Huffman class and its methods can
 be found in `huffman.hh`.
 
+The Huffman tree is re-computed for every byte, so the compression and
+decompression processes take quite some time.
+Furthermore, the adaptive Huffman encoding algorithm implemented here cannot be
+parallelized.
+For the *Tale of Two Cities* example below,
+`encoder` took 38 minutes 25 seconds to encode the file on my laptop.
+
 # Compiling and Testing
 The compilation process for this library is fairly standard;
 use the included `Makefile` directly.
