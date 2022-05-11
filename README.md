@@ -62,3 +62,10 @@ input filename;
 
 If `-` is given as the only argument to either `encoder` or `decoder`,
 the program in question will take its input from STDIN and output on STDOUT.
+
+# Compression tests
+| Filename | Size (B) | Compressed size (B) | Files match? | Remarks |
+|----------|----------|---------------------|--------------|---------|
+| `README.md` | 2283    | 2271    | yes | Tests run before table was added |
+| `LICENSE`   | 1089    | 1482    | yes | File size too small to compress  |
+| `98-0.txt`  | 807 231 | ??? ??? | ??? | *A Tale of Two Cities* full text |
